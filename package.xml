@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-09-19</date>
+ <date>2017-10-30</date>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -25,6 +25,13 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="OpenXchange">
+      <file name="CHANGES" role="doc" />
+     </dir> <!-- /doc/Horde/OpenXchange -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="OpenXchange">
@@ -81,6 +88,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="CHANGES" name="doc/Horde/OpenXchange/CHANGES" />
    <install as="Horde/OpenXchange/Base.php" name="lib/Horde/OpenXchange/Base.php" />
    <install as="Horde/OpenXchange/Contacts.php" name="lib/Horde/OpenXchange/Contacts.php" />
    <install as="Horde/OpenXchange/Events.php" name="lib/Horde/OpenXchange/Events.php" />
@@ -138,7 +146,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-09-19</date>
+   <date>2017-10-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
