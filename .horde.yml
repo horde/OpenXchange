@@ -2,7 +2,7 @@
 id: OpenXchange
 name: OpenXchange
 full: Open-Xchange client library
-description: Library to interact with Open-Xchange servers.
+description: A library to interact with Open-Xchange servers.
 list: dev
 type: library
 authors:
