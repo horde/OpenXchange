@@ -13,19 +13,19 @@ authors:
     active: true
     role: lead
 version:
-  release: 1.0.2
+  release: 2.0.0alpha1
   api: 1.0.0
 state:
-  release: stable
+  release: alpha
   api: stable
 license:
   identifier: LGPL-2.1
   uri: http://www.horde.org/licenses/lgpl21
 dependencies:
   required:
-    php: ^5.3 || ^7
-    pear:
-      pear.horde.org/Horde_Date: ^2
-      pear.horde.org/Horde_Http: ^2
-      pear.horde.org/Horde_Perms: ^2
-      pear.horde.org/Horde_Url: ^2
+    php: ^7
+    composer:
+      horde/date: ^3
+      horde/http: ^3
+      horde/perms: ^3
+      horde/url: ^3
