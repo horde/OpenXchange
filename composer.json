@@ -1,4 +1,5 @@
 {
+    "minimum-stability": "dev",
     "name": "horde/openxchange",
     "description": "Open-Xchange client library",
     "type": "library",
@@ -20,10 +21,10 @@
     ],
     "require": {
         "php": "^7",
-        "horde/date": "^3",
-        "horde/http": "^3",
-        "horde/perms": "^3",
-        "horde/url": "^3"
+        "horde/date": "^3 || dev-FRAMEWORK_6_0",
+        "horde/http": "^3 || dev-FRAMEWORK_6_0",
+        "horde/perms": "^3 || dev-FRAMEWORK_6_0",
+        "horde/url": "^3 || dev-FRAMEWORK_6_0"
     },
     "require-dev": {},
     "suggest": {},
