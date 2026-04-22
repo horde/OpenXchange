@@ -13,19 +13,24 @@ authors:
     active: true
     role: lead
 version:
-  release: 2.0.0alpha2
+  release: 2.0.0-beta1
   api: 1.0.0
 state:
-  release: alpha
+  release: beta
   api: stable
 license:
   identifier: LGPL-2.1
   uri: http://www.horde.org/licenses/lgpl21
 dependencies:
   required:
-    php: ^7
+    php: ^8.1
     composer:
       horde/date: ^3
       horde/http: ^3
+      horde/controller: '*'
       horde/perms: ^3
       horde/url: ^3
+keywords:
+  - integration
+  - controller
+vendor: horde

@@ -1,5 +1,4 @@
 {
-    "minimum-stability": "dev",
     "name": "horde/openxchange",
     "description": "Open-Xchange client library",
     "type": "library",
@@ -12,17 +11,17 @@
             "role": "lead"
         }
     ],
-    "time": "2021-07-04",
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://horde-satis.maintaina.com/"
-        }
+    "keywords": [
+        "integration",
+        "controller"
     ],
+    "time": "2026-04-22",
+    "repositories": [],
     "require": {
-        "php": "^7",
+        "php": "^8.1",
         "horde/date": "^3 || dev-FRAMEWORK_6_0",
         "horde/http": "^3 || dev-FRAMEWORK_6_0",
+        "horde/controller": "* || dev-FRAMEWORK_6_0",
         "horde/perms": "^3 || dev-FRAMEWORK_6_0",
         "horde/url": "^3 || dev-FRAMEWORK_6_0"
     },
@@ -31,6 +30,24 @@
     "autoload": {
         "psr-0": {
             "Horde_OpenXchange": "lib/"
+        },
+        "psr-4": {
+            "Horde\\OpenXchange\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Horde\\OpenXchange\\Test\\": "test/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "horde/horde-installer-plugin": true
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-FRAMEWORK_6_0": "2.x-dev"
         }
     }
 }

@@ -9,7 +9,6 @@
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
   notes: |+
-    
 2.0.0alpha1:
   api: 1.0.0
   state:
@@ -21,6 +20,20 @@
     uri: http://www.horde.org/licenses/lgpl21
   notes: |
     [rla] Package for H6 / composer installer.
+2.0.0-beta1:
+  api: 2.0.0-beta1
+  state:
+    release: beta
+    api: beta
+  date: 2026-04-22
+  license:
+    identifier: LGPL-2.1
+    uri: https://spdx.org/licenses/LGPL-2.1.html
+  notes: |-
+    test: Add test suite for lib/ codebase (Tasks, Events, Contacts)
+    style: php-cs-fixer
+    Add CI job for satis repo update
+    Development mode for OpenXchange-2.0.0alpha3
 1.0.2:
   api: 1.0.0
   state:
@@ -42,17 +55,6 @@
     uri: http://www.horde.org/licenses/lgpl21
   notes: |
     [jan] Mark PHP 7 as supported.
-1.0.0:
-  api: 1.0.0
-  state:
-    release: stable
-    api: stable
-  date: 2014-05-21
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] First stable release.
 1.0.0alpha1:
   api: 1.0.0alpha1
   state:
@@ -64,3 +66,14 @@
     uri: http://www.horde.org/licenses/lgpl21
   notes: |
     Initial release.
+1.0.0:
+  api: 1.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2014-05-21
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] First stable release.
