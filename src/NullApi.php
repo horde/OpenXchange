@@ -2,7 +2,4 @@
 
 namespace Horde\OpenXchange;
 
-class NullApi
-{
-
-}
+class NullApi {}

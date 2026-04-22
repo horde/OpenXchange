@@ -8,6 +8,8 @@ use Horde\OpenXchange\Test\Fixture\OxMockClient;
 use Horde_OpenXchange_Tasks;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use Horde_Date;
+use Horde_OpenXchange_Exception;
 
 #[CoversClass(Horde_OpenXchange_Tasks::class)]
 class TasksTest extends TestCase
@@ -110,8 +112,8 @@ class TasksTest extends TestCase
         $this->mock->addLoginResponse();
         $this->mock->addJsonResponse(['data' => []]);
 
-        $start = new \Horde_Date('2024-06-01');
-        $end = new \Horde_Date('2024-06-30');
+        $start = new Horde_Date('2024-06-01');
+        $end = new Horde_Date('2024-06-30');
 
         $tasks = $this->makeTasks();
         $result = $tasks->listTasks(null, $start, $end);
@@ -164,8 +166,8 @@ class TasksTest extends TestCase
         $this->mock->addLoginResponse();
         $this->mock->addErrorResponse('Task not found');
 
-        // Base::_request assigns array to string-typed $details property
-        $this->expectException(\TypeError::class);
+        $this->expectException(Horde_OpenXchange_Exception::class);
+        $this->expectExceptionMessage('Task not found');
 
         $tasks = $this->makeTasks();
         $tasks->getTask(3, 999);

@@ -8,6 +8,9 @@ use Horde\OpenXchange\Test\Fixture\OxMockClient;
 use Horde_OpenXchange_Contacts;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use Horde_OpenXchange_Exception;
+use Horde_Perms;
+use LogicException;
 
 #[CoversClass(Horde_OpenXchange_Contacts::class)]
 class ContactsTest extends TestCase
@@ -60,7 +63,7 @@ class ContactsTest extends TestCase
 
     public function testLoginThrowsWithoutCredentials(): void
     {
-        $this->expectException(\LogicException::class);
+        $this->expectException(LogicException::class);
         $this->expectExceptionMessage('User name or password missing');
 
         $contacts = new Horde_OpenXchange_Contacts([
@@ -227,13 +230,13 @@ class ContactsTest extends TestCase
         $this->assertSame(3, $result[2]['id']);
     }
 
-    public function testApiErrorThrowsOnDetailAssignment(): void
+    public function testApiErrorThrowsException(): void
     {
         $this->mock->addLoginResponse();
         $this->mock->addErrorResponse('Permission denied');
 
-        // Base::_request assigns array to string-typed $details property
-        $this->expectException(\TypeError::class);
+        $this->expectException(Horde_OpenXchange_Exception::class);
+        $this->expectExceptionMessage('Permission denied');
 
         $contacts = $this->makeContacts();
         $contacts->listContacts(10);
@@ -244,7 +247,7 @@ class ContactsTest extends TestCase
         $this->mock->addLoginResponse();
         $this->mock->addRawResponse('Not JSON at all', 500);
 
-        $this->expectException(\Horde_OpenXchange_Exception::class);
+        $this->expectException(Horde_OpenXchange_Exception::class);
 
         $contacts = $this->makeContacts();
         $contacts->listContacts(10);
@@ -392,10 +395,10 @@ class ContactsTest extends TestCase
         $resources = $contacts->listResources();
 
         $perm = $resources[40]['hordePermission']['user']['bob'];
-        $this->assertSame(\Horde_Perms::SHOW, $perm & \Horde_Perms::SHOW);
-        $this->assertSame(0, $perm & \Horde_Perms::READ);
-        $this->assertSame(0, $perm & \Horde_Perms::EDIT);
-        $this->assertSame(0, $perm & \Horde_Perms::DELETE);
+        $this->assertSame(Horde_Perms::SHOW, $perm & Horde_Perms::SHOW);
+        $this->assertSame(0, $perm & Horde_Perms::READ);
+        $this->assertSame(0, $perm & Horde_Perms::EDIT);
+        $this->assertSame(0, $perm & Horde_Perms::DELETE);
     }
 
     public function testPermissionBitsFullAccess(): void
@@ -430,10 +433,10 @@ class ContactsTest extends TestCase
         $resources = $contacts->listResources();
 
         $perm = $resources[50]['hordePermission']['user']['admin'];
-        $this->assertSame(\Horde_Perms::SHOW, $perm & \Horde_Perms::SHOW);
-        $this->assertSame(\Horde_Perms::READ, $perm & \Horde_Perms::READ);
-        $this->assertSame(\Horde_Perms::EDIT, $perm & \Horde_Perms::EDIT);
-        $this->assertSame(\Horde_Perms::DELETE, $perm & \Horde_Perms::DELETE);
+        $this->assertSame(Horde_Perms::SHOW, $perm & Horde_Perms::SHOW);
+        $this->assertSame(Horde_Perms::READ, $perm & Horde_Perms::READ);
+        $this->assertSame(Horde_Perms::EDIT, $perm & Horde_Perms::EDIT);
+        $this->assertSame(Horde_Perms::DELETE, $perm & Horde_Perms::DELETE);
     }
 
     public function testCookieFromLoginIsStored(): void

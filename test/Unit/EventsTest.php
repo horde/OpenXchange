@@ -8,6 +8,8 @@ use Horde\OpenXchange\Test\Fixture\OxMockClient;
 use Horde_OpenXchange_Events;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use Horde_Date;
+use Horde_OpenXchange_Exception;
 
 #[CoversClass(Horde_OpenXchange_Events::class)]
 class EventsTest extends TestCase
@@ -96,8 +98,8 @@ class EventsTest extends TestCase
         $this->mock->addLoginResponse();
         $this->mock->addJsonResponse(['data' => []]);
 
-        $start = new \Horde_Date('2024-01-01');
-        $end = new \Horde_Date('2024-12-31');
+        $start = new Horde_Date('2024-01-01');
+        $end = new Horde_Date('2024-12-31');
 
         $events = $this->makeEvents();
         $result = $events->listEvents(null, $start, $end);
@@ -146,8 +148,8 @@ class EventsTest extends TestCase
         $this->mock->addLoginResponse();
         $this->mock->addErrorResponse('Object not found');
 
-        // Base::_request assigns array to string-typed $details property
-        $this->expectException(\TypeError::class);
+        $this->expectException(Horde_OpenXchange_Exception::class);
+        $this->expectExceptionMessage('Object not found');
 
         $events = $this->makeEvents();
         $events->getEvent(5, 999);
