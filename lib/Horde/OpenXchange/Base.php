@@ -369,7 +369,7 @@ abstract class Horde_OpenXchange_Base
             }
             if (isset($data['error'])) {
                 $e = new Horde_OpenXchange_Exception($data['error']);
-                $e->details = $data;
+                $e->details = json_encode($data);
                 throw $e;
             }
             return $data;
