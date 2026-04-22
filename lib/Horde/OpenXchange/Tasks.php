@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2014-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2014-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -26,42 +27,42 @@ class Horde_OpenXchange_Tasks extends Horde_OpenXchange_EventsAndTasks
     /**
      * Status: not started.
      */
-    const STATUS_NOT_STARTED = 1;
+    public const STATUS_NOT_STARTED = 1;
 
     /**
      * Status: in progress.
      */
-    const STATUS_IN_PROGRESS = 2;
+    public const STATUS_IN_PROGRESS = 2;
 
     /**
      * Status: done.
      */
-    const STATUS_DONE = 3;
+    public const STATUS_DONE = 3;
 
     /**
      * Status: waiting.
      */
-    const STATUS_WAITING = 4;
+    public const STATUS_WAITING = 4;
 
     /**
      * Status: deferred.
      */
-    const STATUS_DEFERRED = 5;
+    public const STATUS_DEFERRED = 5;
 
     /**
      * Priority: high.
      */
-    const PRIORITY_LOW = 1;
+    public const PRIORITY_LOW = 1;
 
     /**
      * Priority: high.
      */
-    const PRIORITY_MEDIUM = 2;
+    public const PRIORITY_MEDIUM = 2;
 
     /**
      * Priority: high.
      */
-    const PRIORITY_HIGH = 3;
+    public const PRIORITY_HIGH = 3;
 
     /**
      * The folder category.
@@ -80,16 +81,16 @@ class Horde_OpenXchange_Tasks extends Horde_OpenXchange_EventsAndTasks
      *                       - user: (string) Authentication user.
      *                       - password: (string) Authentication password.
      */
-    public function __construct(array $params = array())
+    public function __construct(array $params = [])
     {
         parent::__construct($params);
-        $this->_columns += array(
+        $this->_columns += [
             300 => 'status',
             301 => 'percent',
             308 => 'duration',
             309 => 'priority',
             315 => 'completed',
-        );
+        ];
     }
 
     /**

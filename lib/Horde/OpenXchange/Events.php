@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2014-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2014-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -40,10 +41,10 @@ class Horde_OpenXchange_Events extends Horde_OpenXchange_EventsAndTasks
      *                       - user: (string) Authentication user.
      *                       - password: (string) Authentication password.
      */
-    public function __construct(array $params = array())
+    public function __construct(array $params = [])
     {
         parent::__construct($params);
-        $this->_columns += array(
+        $this->_columns += [
             206 => 'recur_id',
             207 => 'recur_position',
             210 => 'recur_change_exceptions',
@@ -55,7 +56,7 @@ class Horde_OpenXchange_Events extends Horde_OpenXchange_EventsAndTasks
             401 => 'allday',
             402 => 'status',
             408 => 'timezone',
-        );
+        ];
     }
 
     /**

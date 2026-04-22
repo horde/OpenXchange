@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2014-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2014-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -28,7 +29,7 @@ abstract class Horde_OpenXchange_EventsAndTasks extends Horde_OpenXchange_Base
      *
      * @var array
      */
-    protected $_columns = array(
+    protected $_columns = [
         1 => 'id',
         20 => 'folder_id',
         100 => 'categories',
@@ -48,7 +49,7 @@ abstract class Horde_OpenXchange_EventsAndTasks extends Horde_OpenXchange_Base
         221 => 'users',
         222 => 'recur_count',
         223 => 'uid',
-    );
+    ];
 
     /**
      * Returns a list of events or tasks.
@@ -65,14 +66,14 @@ abstract class Horde_OpenXchange_EventsAndTasks extends Horde_OpenXchange_Base
     {
         $this->_login();
 
-        $data = array(
+        $data = [
             'session' => $this->_session,
             'columns' => implode(',', array_keys($this->_columns)),
             'start' => $start ? $start->timestamp() * 1000 : 0,
             'end' => $end ? $end->timestamp() * 1000 : PHP_INT_MAX,
             // Doesn't work for some reason.
             'recurrence_master' => true,
-        );
+        ];
         if ($folder) {
             $data['folder'] = $folder;
         }
@@ -80,13 +81,13 @@ abstract class Horde_OpenXchange_EventsAndTasks extends Horde_OpenXchange_Base
         $response = $this->_request(
             'GET',
             $this->_folderType,
-            array('action' => 'all'),
+            ['action' => 'all'],
             $data
         );
 
-        $events = array();
+        $events = [];
         foreach ($response['data'] as $event) {
-            $map = array();
+            $map = [];
             foreach (array_values($this->_columns) as $key => $column) {
                 $map[$column] = $event[$key];
             }
@@ -109,16 +110,16 @@ abstract class Horde_OpenXchange_EventsAndTasks extends Horde_OpenXchange_Base
     {
         $this->_login();
 
-        $data = array(
+        $data = [
             'session' => $this->_session,
             'id' => $id,
             'folder' => $folder,
-        );
+        ];
 
         $response = $this->_request(
             'GET',
             $this->_folderType,
-            array('action' => 'get'),
+            ['action' => 'get'],
             $data
         );
 

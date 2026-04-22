@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2014-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2014-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -35,7 +36,7 @@ class Horde_OpenXchange_Contacts extends Horde_OpenXchange_Base
      *
      * @var array
      */
-    protected $_columns = array(
+    protected $_columns = [
         1 => 'id',
         20 => 'folder_id',
         100 => 'categories',
@@ -141,7 +142,7 @@ class Horde_OpenXchange_Contacts extends Horde_OpenXchange_Base
         613 => 'homeAddress',
         614 => 'workAddress',
         615 => 'otherAddress',
-    );
+    ];
 
     /**
      * Returns a list contacts.
@@ -156,10 +157,10 @@ class Horde_OpenXchange_Contacts extends Horde_OpenXchange_Base
     {
         $this->_login();
 
-        $data = array(
+        $data = [
             'session' => $this->_session,
             'columns' => implode(',', array_keys($this->_columns)),
-        );
+        ];
         if ($folder) {
             $data['folder'] = $folder;
         }
@@ -167,13 +168,13 @@ class Horde_OpenXchange_Contacts extends Horde_OpenXchange_Base
         $response = $this->_request(
             'GET',
             'contacts',
-            array('action' => 'all'),
+            ['action' => 'all'],
             $data
         );
 
-        $contacts = array();
+        $contacts = [];
         foreach ($response['data'] as $contact) {
-            $map = array();
+            $map = [];
             foreach (array_values($this->_columns) as $key => $column) {
                 $map[$column] = $contact[$key];
             }

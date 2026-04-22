@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2014-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2014-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -29,14 +30,14 @@ abstract class Horde_OpenXchange_Base
      *
      * @see listResources()
      */
-    const RESOURCE_PRIVATE = 'private';
+    public const RESOURCE_PRIVATE = 'private';
 
     /**
      * Return public resources.
      *
      * @see listResources()
      */
-    const RESOURCE_PUBLIC = 'public';
+    public const RESOURCE_PUBLIC = 'public';
 
     /**
      * The folder category.
@@ -71,7 +72,7 @@ abstract class Horde_OpenXchange_Base
      *
      * @var array
      */
-    protected $_cookies = array();
+    protected $_cookies = [];
 
     /**
      * The current session ID.
@@ -90,16 +91,16 @@ abstract class Horde_OpenXchange_Base
      *                       - user: (string) Authentication user.
      *                       - password: (string) Authentication password.
      */
-    public function __construct(array $params = array())
+    public function __construct(array $params = [])
     {
         if (isset($params['client'])) {
             $this->_client = $params['client'];
             unset($params['client']);
         } else {
-            $this->_client = new Horde_Http_Client(array('request.timeout' => 10));
+            $this->_client = new Horde_Http_Client(['request.timeout' => 10]);
         }
         $this->_params = array_merge(
-            array('endpoint' => 'http://localhost/ajax'),
+            ['endpoint' => 'http://localhost/ajax'],
             $params
         );
         $this->_uri = $this->_params['endpoint'];
@@ -134,12 +135,12 @@ abstract class Horde_OpenXchange_Base
         $response = $this->_request(
             'GET',
             'login',
-            array('action' => 'logout'),
-            array('session' => $this->_session)
+            ['action' => 'logout'],
+            ['session' => $this->_session]
         );
 
         unset($this->_session);
-        $this->_cookies = array();
+        $this->_cookies = [];
     }
 
     /**
@@ -155,11 +156,11 @@ abstract class Horde_OpenXchange_Base
         $user = $this->_request(
             'GET',
             'user',
-            array(
+            [
                 'action' => 'get',
                 'session' => $this->_session,
                 'id' => $id,
-            )
+            ]
         );
         return $user['data'];
     }
@@ -177,11 +178,11 @@ abstract class Horde_OpenXchange_Base
         $group = $this->_request(
             'GET',
             'group',
-            array(
+            [
                 'action' => 'get',
                 'session' => $this->_session,
                 'id' => $id,
-            )
+            ]
         );
         return $group;
     }
@@ -199,17 +200,17 @@ abstract class Horde_OpenXchange_Base
         $content = $this->_request(
             'GET',
             'config/' . $config,
-            array('session' => $this->_session)
+            ['session' => $this->_session]
         );
         switch ($content['data']) {
-        case 'true':
-            return true;
-        case 'false':
-            return false;
-        case 'null':
-            return null;
-        default:
-            return $content['data'];
+            case 'true':
+                return true;
+            case 'false':
+                return false;
+            case 'null':
+                return null;
+            default:
+                return $content['data'];
         }
     }
 
@@ -229,20 +230,20 @@ abstract class Horde_OpenXchange_Base
         $response = $this->_request(
             'PUT',
             'folders',
-            array(
+            [
                 'action' => 'allVisible',
                 'session' => $this->_session,
                 'content_type' => $this->_folderType,
-                'columns' => '1,300,306,308'
-            )
+                'columns' => '1,300,306,308',
+            ]
         );
 
-        $resources = $users = $groups = array();
+        $resources = $users = $groups = [];
         foreach ($response['data'][$type] as $resource) {
-            $info = array(
+            $info = [
                 'label' => $resource[1],
                 'default' => $resource[3],
-            );
+            ];
             foreach ($resource[2] as $perm) {
                 // http://oxpedia.org/wiki/index.php?title=HTTP_API#PermissionFlags
                 $permission = 0;
@@ -291,19 +292,19 @@ abstract class Horde_OpenXchange_Base
             return;
         }
 
-        if (!isset($this->_params['user']) ||
-            !isset($this->_params['password'])) {
+        if (!isset($this->_params['user'])
+            || !isset($this->_params['password'])) {
             throw new LogicException('User name or password missing');
         }
 
         $response = $this->_request(
             'POST',
             'login',
-            array('action' => 'login'),
-            array(
+            ['action' => 'login'],
+            [
                 'name' => $this->_params['user'],
-                'password' => $this->_params['password']
-            )
+                'password' => $this->_params['password'],
+            ]
         );
 
         $this->_session = $response['session'];
@@ -321,11 +322,11 @@ abstract class Horde_OpenXchange_Base
      *                returned but the request was still successful.
      * @throws Horde_OpenXchange_Exception.
      */
-    protected function _request($method, $namespace, $params, $data = array())
+    protected function _request($method, $namespace, $params, $data = [])
     {
         $uri = new Horde_Url($this->_uri . '/' . $namespace, true);
         try {
-            $headers = array();
+            $headers = [];
             if (isset($this->_cookies)) {
                 $headers['Cookie'] = implode('; ', $this->_cookies);
             }
@@ -335,18 +336,18 @@ abstract class Horde_OpenXchange_Base
             }
             $response = $this->_client->request(
                 $method,
-                (string)$uri->add($params),
+                (string) $uri->add($params),
                 $data,
                 $headers
             );
             if ($cookies = $response->getHeader('set-cookie')) {
                 if (!is_array($cookies)) {
-                    $cookies = array($cookies);
+                    $cookies = [$cookies];
                 }
                 foreach ($cookies as $cookie) {
                     $cookie = preg_split('/;\s*/', $cookie);
                     for ($i = 1, $c = count($cookie); $i < $c; $i++) {
-                        list($key, $value) = explode('=', $cookie[$i]);
+                        [$key, $value] = explode('=', $cookie[$i]);
                         if ($key == 'Expires') {
                             $expire = new Horde_Date($value);
                             if ($expire->before(time())) {
