@@ -34,3 +34,6 @@ keywords:
   - integration
   - controller
 vendor: horde
+quality:
+  phpstan:
+    level: 1
