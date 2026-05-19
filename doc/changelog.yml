@@ -34,6 +34,19 @@
     style: php-cs-fixer
     Add CI job for satis repo update
     Development mode for OpenXchange-2.0.0alpha3
+2.0.0-RC1:
+  api: 2.0.0-RC1
+  state:
+    release: RC
+    api: RC
+  date: 2026-05-19
+  license:
+    identifier: LGPL-2.1
+    uri: https://spdx.org/licenses/LGPL-2.1.html
+  notes: |-
+    chore(hordeyml): Add phpstan clause to .horde.yml
+    test: Modify tests after fix
+    fix: Details must be string
 1.0.2:
   api: 1.0.0
   state:
